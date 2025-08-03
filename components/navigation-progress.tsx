@@ -14,9 +14,10 @@ interface Section {
 interface NavigationProgressProps {
   sections: Section[]
   currentSection: number
+  getNavName:any
 }
 
-export default function NavigationProgress({ sections, currentSection }: NavigationProgressProps) {
+export default function NavigationProgress({ sections, currentSection,getNavName }: NavigationProgressProps) {
   const { scrollYProgress } = useScroll()
   const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
 
@@ -26,7 +27,10 @@ export default function NavigationProgress({ sections, currentSection }: Navigat
       element.scrollIntoView({ behavior: "smooth" })
     }
   }
-
+const navItemName=(item:any)=>{
+  getNavName(item)
+console.log("itemitem",item)
+}
   return (
     // <div classNameName="fixed top-0 left-0 right-0 z-40 bg-slate-900/90 backdrop-blur-xl border-b border-gold-500/20">
     //   {/* Premium progress bar */}
@@ -144,9 +148,10 @@ export default function NavigationProgress({ sections, currentSection }: Navigat
           id="navbar-language"
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-slate-900/90 backdrop-blur-xl  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            {["Home", "About", "Services", "Pricing", "Contact"].map((item, idx) => (
+            {["Home", "About", "Services", "Pricing", "Contact","Login"].map((item, idx) => (
               <li key={item}>
                 <a
+                 onClick={()=>{navItemName(item)}}
                   href="#"
                   className={`block py-2 px-3 md:p-0 rounded-sm ${idx === 0
                       ? "text-white bg-blue-700 md:bg-transparent md:text-gold-200 md:dark:text-gold-200"
